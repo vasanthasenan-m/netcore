@@ -1,0 +1,45 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+
+- stage: Build
+  displayName: 'Build source code'
+  condition: succeeded()
+  jobs:
+    - job: Checkout_and_Build_Job
+      displayName: 'Checkout & Build Project'
+      steps:
+        - script: echo Hello, world!
+          displayName: 'Run a one-line script'
+        - script: echo ${{variables.envName}}
+        - checkout: self
+          persistCredentials: true
+          fetchDepth: 0
+        - task: UseDotNet@2
+          displayName: Use .NET $(dotnetVersion)
+          inputs:
+            packageType: 'sdk'
+            version: '$(dotnetVersion)'
+        - task: DotNetCoreCLI@2
+          displayName: 'Check DotNet Format'
+          continueOnError: False
+          inputs:
+            projects: '$(implmentationProjectPath)'
+            command: 'custom'
+            custom: 'format'
+            arguments: '--verify-no-changes --verbosity diagnostic --report dotnet-format-issues.json'
+        - task: DotNetCoreCLI@2
+          displayName: 'Build Project'
+          inputs:
+            command: 'build'
+            projects: '$(implmentationProjectPath)'
+            arguments: '--configuration Release --configfile $(nugetConfigPath)'
