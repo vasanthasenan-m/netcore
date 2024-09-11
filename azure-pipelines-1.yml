@@ -18,9 +18,9 @@ stages:
     - job: Checkout_and_Build_Job
       displayName: 'Checkout & Build Project'
       steps:
-        - script: Use .NET
+        - script: echo Use .NET $(dotnetVersion)
           displayName: Use .NET $(dotnetVersion)
-        - script: Gitleaks enabled
+        - script: echo Gitleaks enabled $(gitleaks_enabled)
           displayName: Gitleaks enabled $(gitleaks_enabled)
         - checkout: self
           persistCredentials: true
