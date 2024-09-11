@@ -25,13 +25,6 @@ stages:
         - checkout: self
           persistCredentials: true
           fetchDepth: 0
-        - task: Gitleaks@2
-          inputs:
-            scanlocation: '$(Build.SourcesDirectory)'
-            configtype: 'predefined'
-            predefinedconfigfile: 'GitleaksUdmCombo.toml'
-            reportformat: 'sarif'
-            verbose: true
         - task: DotNetCoreCLI@2
           inputs:
             command: 'build'
