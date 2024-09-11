@@ -18,10 +18,10 @@ stages:
     - job: Checkout_and_Build_Job
       displayName: 'Checkout & Build Project'
       steps:
-        - script: Use .NET $(dotnetVersion)
-          displayName: 'Run a one-line script'
-        - script: Gitleaks enabled $(gitleaks_enabled)
-          displayName: 'Run a one-line script'
+        - script: Use .NET
+          displayName: Use .NET $(dotnetVersion)
+        - script: Gitleaks enabled
+          displayName: Gitleaks enabled $(gitleaks_enabled)
         - checkout: self
           persistCredentials: true
           fetchDepth: 0
