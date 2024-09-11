@@ -20,9 +20,16 @@ stages:
       steps:
         - script: echo Hello, world!
           displayName: 'Run a one-line script'
+        - script: echo Hello, world!
+          displayName: 'Run a one-line script'
         - checkout: self
           persistCredentials: true
           fetchDepth: 0
+        - task: UseDotNet@2
+          displayName: Use .NET $(dotnetVersion)
+          inputs:
+            packageType: 'sdk'
+            version: '$(dotnetVersion)'
         - task: DotNetCoreCLI@2
           inputs:
             command: 'build'
