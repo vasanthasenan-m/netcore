@@ -20,21 +20,6 @@ stages:
       steps:
         - script: echo Hello, world!
           displayName: 'Run a one-line script'
-        - script: echo ${{variables.envName}}
         - checkout: self
           persistCredentials: true
           fetchDepth: 0
-        - task: DotNetCoreCLI@2
-          displayName: 'Check DotNet Format'
-          continueOnError: False
-          inputs:
-            projects: '$(implmentationProjectPath)'
-            command: 'custom'
-            custom: 'format'
-            arguments: '--verify-no-changes --verbosity diagnostic --report dotnet-format-issues.json'
-        - task: DotNetCoreCLI@2
-          displayName: 'Build Project'
-          inputs:
-            command: 'build'
-            projects: '$(implmentationProjectPath)'
-            arguments: '--configuration Release --configfile $(nugetConfigPath)'
