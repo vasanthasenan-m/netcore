@@ -18,18 +18,13 @@ stages:
     - job: Checkout_and_Build_Job
       displayName: 'Checkout & Build Project'
       steps:
-        - script: echo Hello, world!
+        - script: Use .NET $(dotnetVersion)
           displayName: 'Run a one-line script'
-        - script: echo Hello, world!
+        - script: Gitleaks enabled $(gitleaks_enabled)
           displayName: 'Run a one-line script'
         - checkout: self
           persistCredentials: true
           fetchDepth: 0
-        - task: UseDotNet@2
-          displayName: Use .NET $(dotnetVersion)
-          inputs:
-            packageType: 'sdk'
-            version: '$(dotnetVersion)'
         - task: DotNetCoreCLI@2
           inputs:
             command: 'build'
