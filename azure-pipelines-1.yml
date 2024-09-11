@@ -24,11 +24,6 @@ stages:
         - checkout: self
           persistCredentials: true
           fetchDepth: 0
-        - task: UseDotNet@2
-          displayName: Use .NET $(dotnetVersion)
-          inputs:
-            packageType: 'sdk'
-            version: '$(dotnetVersion)'
         - task: DotNetCoreCLI@2
           displayName: 'Check DotNet Format'
           continueOnError: False
