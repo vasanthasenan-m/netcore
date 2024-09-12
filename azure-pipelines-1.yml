@@ -9,6 +9,14 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+resources:
+  repositories:
+  - repository: phongphamthe/pipelines-dotnet-core
+    endpoint: github.com_phongphamthe
+    type: github
+    name: phongphamthe/pipelines-dotnet-core
+    ref: refs/heads/master
+
 stages:
 
 - stage: Build
