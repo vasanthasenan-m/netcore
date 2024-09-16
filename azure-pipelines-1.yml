@@ -20,8 +20,8 @@ stages:
       steps:
         - script: echo Use .NET $(dotnetVersion)
           displayName: Use .NET $(dotnetVersion)
-        - script: echo Gitleaks enabled $(gitleaks_enabled) gitleaks__scanlocation $(gitleaks__scanlocation) gitleaks__configfile $(gitleaks__configfile) gitleaks__baselinePath $(gitleaks__baselinePath) gitleaks__reportfolder $(gitleaks__reportfolder) 
-          displayName: Gitleaks enabled $(gitleaks_enabled)
+        - script: echo Gitleaks enabled $(owasp_dependency_check_enabled) gitleaks__scanlocation $(gitleaks__scanlocation) gitleaks__configfile $(gitleaks__configfile) gitleaks__baselinePath $(gitleaks__baselinePath) gitleaks__reportfolder $(gitleaks__reportfolder) 
+          displayName: owasp_dependency_check_enabled enabled $(owasp_dependency_check_enabled)
         - checkout: self
           persistCredentials: true
           fetchDepth: 0
