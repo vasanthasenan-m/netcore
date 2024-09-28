@@ -28,22 +28,22 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     - name: Publish
       run: dotnet publish -c Release -o website
-     - name: Upload artifact for deployment job
+    - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v2.3.1
-  with:
-    name: webapp
-    path: website/**
-    if-no-files-found: warn
-Available Options:
-  warn: Output a warning but do not fail the action
-  error: Fail the action with an error message
-  ignore: Do not output any warnings or errors, the action does not fail
+      with:
+        name: webapp
+        path: website/**
+        if-no-files-found: warn
+    Available Options:
+      warn: Output a warning but do not fail the action
+      error: Fail the action with an error message
+      ignore: Do not output any warnings or errors, the action does not fail
 
-  if-no-files-found: # optional, default is warn
-    # Duration after which artifact will expire in days. 0 means using default retention. Minimum 1 day. Maximum 90 days unless changed from the repository settings page.
+    if-no-files-found: # optional, default is warn
+      # Duration after which artifact will expire in days. 0 means using default retention. Minimum 1 day. Maximum 90 days unless changed from the repository settings page.
 
-    retention-days: # optional
+      retention-days: # optional
     # If true, hidden files will be included in the uploaded artifact. If false, hidden files will be excluded from the uploaded artifact.
 
-    include-hidden-files: # optional, default is false
+      include-hidden-files: # optional, default is false
           
