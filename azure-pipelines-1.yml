@@ -20,14 +20,6 @@ pool:
   name: $(poolName)
   vmImage: $(poolvmImage)
 
-resources:
-  repositories:
-  - repository: arclib-services
-    endpoint: github-arclib-repos-connection
-    type: github
-    name: NashTech-Global/arclib-services
-    ref: refs/heads/feature/deploy-to-dev-v1
-
 stages:
 - stage: Build
   displayName: 'Build source code'
