@@ -42,7 +42,7 @@ jobs:
         uses: actions/download-artifact@v4.1.8
         with:
           name: webapp
-          path: website
+          path: webapp
       - name: Deploy web app
         uses: azure/webapps-deploy@v2
         with:
