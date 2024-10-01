@@ -33,11 +33,11 @@ stages:
           persistCredentials: true
           fetchDepth: 0
 
-        # - bash: |
-        #     echo "Build.SourcesDirectory = $(Build.SourcesDirectory)"
-        #     echo "Buid.BuildNumber = $(Build.BuildNumber)"
-        #     echo "Build.Repository.Name = $(Build.Repository.Name)"
-        #     ls $(Build.SourcesDirectory)
+        - bash: |
+            echo "Build.SourcesDirectory = $(Build.SourcesDirectory)"
+            echo "Buid.BuildNumber = $(Build.BuildNumber)"
+            echo "Build.Repository.Name = $(Build.Repository.Name)"
+            ls $(Build.SourcesDirectory)
 
         # - task: UseDotNet@2
         #   displayName: Use .NET $(dotnetVersion)
