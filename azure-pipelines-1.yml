@@ -90,3 +90,4 @@ stages:
             buildContext: './'
             repository: '$(acrName).azurecr.io/$(dockerNamespace)/$(serviceName)'
             tags: '$(SetBuildInfo.imageTag)'
+            continueOnError: true
