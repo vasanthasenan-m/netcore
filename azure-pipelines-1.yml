@@ -88,6 +88,6 @@ stages:
             command: build
             dockerfile: '$(dockerFilePath)'
             buildContext: './'
-            repository: 'hub.docker.com/repository/docker/phongpthy/demo'
+            repository: 'sd5294containerregistry.azurecr.io'
             tags: '$(SetBuildInfo.imageTag)'
             continueOnError: true
