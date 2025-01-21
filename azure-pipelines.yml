@@ -34,6 +34,12 @@ stages:
           # Build .NET Core Project
           - script: dotnet build --configuration $(buildConfiguration)
             displayName: 'Build Dot Net Core Project with configuration $(buildConfiguration)'
+          # Copy Files to Artifactory Staging
+          - task: CopyFiles@2
+            displayName: 'Copy Files to $(Build.ArtifactStagingDirectory)'
+            inputs:
+              Contents: '**'
+              TargetFolder: '$(Build.ArtifactStagingDirectory)'
           # Publish .NET Core Project
           - task: PublishBuildArtifacts@1
             inputs:
