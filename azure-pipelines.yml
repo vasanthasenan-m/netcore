@@ -60,7 +60,10 @@ stages:
               buildType: 'current'
               downloadType: 'single'
               downloadPath: '$(System.ArtifactsDirectory)'
-
+          - task: IISWebAppDeploymentOnMachineGroup@0
+            inputs:
+              WebSiteName: 'SimpleMVCApp'
+              Package: '$(System.DefaultWorkingDirectory)\**\*.zip'
 
 
 
