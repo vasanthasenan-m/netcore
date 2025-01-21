@@ -63,7 +63,7 @@ stages:
           - task: IISWebAppDeploymentOnMachineGroup@0
             inputs:
               WebSiteName: 'SimpleMVCApp'
-              Package: '$(System.DefaultWorkingDirectory)\**\*.zip'
+              Package: '$(System.ArtifactStagingDirectory)\**\*.zip'
 
 
 
