@@ -11,6 +11,34 @@ pool: SH_DotNetCoreAgent
 variables:
   buildConfiguration: 'Release'
 
-steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+# Build Pipeline
+stages:
+  - stage: ContinuousIntegration
+    displayName: 'Continuous Integration Stage'
+    jobs:
+      - job: ContinuousIntegrationJob
+        displayName: 'Continuous Integration Job'
+        steps:
+          # Download SDK for .NET Core
+          - task: UseDotNet@2
+            displayName: 'Download SDK for .NET Core 8'
+            inputs:
+              version: 8.x
+              packageType: sdk
+          # Restore Nuget Packages
+          - task: NuGetCommand@2
+            displayName: 'Nuget Restore'
+            inputs:
+              solution: '**/*.csproj'
+              selectOrConfig: 'select'
+          # Build .NET Core Project
+          - script: dotnet build --configuration $(buildConfiguration)
+            displayName: 'Build Dot Net Core Project with configuration $(buildConfiguration)'
+
+
+
+
+
+          
+
+
