@@ -1,0 +1,73 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool: SH_DotNetCoreAgent
+
+variables:
+  buildConfiguration: 'Release'
+
+# Build Pipeline
+stages:
+  - stage: ContinuousIntegration
+    displayName: 'Continuous Integration Stage'
+    jobs:
+      - job: ContinuousIntegrationJob
+        displayName: 'Continuous Integration Job'
+        steps:
+          # Download SDK for .NET Core
+          # - task: UseDotNet@2
+          #   displayName: 'Download SDK for .NET Core 8'
+          #   inputs:
+          #     version: 8.x
+          #     packageType: sdk
+          # Restore Nuget Packages
+          - task: NuGetCommand@2
+            displayName: 'Nuget Restore'
+            inputs:
+              solution: '**/*.csproj'
+              selectOrConfig: 'select'
+          # Build .NET Core Project
+          - script: dotnet build --configuration $(buildConfiguration)
+            displayName: 'Build Dot Net Core Project with configuration $(buildConfiguration)'
+          # Copy Files to Artifactory Staging
+          - task: CopyFiles@2
+            displayName: 'Copy Files to $(Build.ArtifactStagingDirectory)'
+            inputs:
+              Contents: '**'
+              TargetFolder: '$(Build.ArtifactStagingDirectory)'
+          # Publish .NET Core Project
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+              ArtifactName: 'drop'
+              publishLocation: 'Container'
+              
+  - stage: ContinuousDeployment
+    displayName: 'Continuous Deployment Stage'
+    trigger: manual
+    jobs:
+      - job: ContinuousDeploymentJob
+        displayName: 'Continuous Deployment Job'
+        steps:
+          - task: DownloadBuildArtifacts@1
+            displayName: 'DownloadBuildArtifacts $(System.ArtifactsDirectory)'
+            inputs:
+              buildType: 'current'
+              downloadType: 'single'
+              downloadPath: '$(System.ArtifactsDirectory)'
+          - task: IISWebAppDeploymentOnMachineGroup@0
+            inputs:
+              WebSiteName: 'SimpleMVCApp'
+              Package: '$(System.ArtifactStagingDirectory)\**\*.zip'
+
+
+
+
+          
+
+
