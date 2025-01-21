@@ -46,6 +46,20 @@ stages:
               PathtoPublish: '$(Build.ArtifactStagingDirectory)'
               ArtifactName: 'drop'
               publishLocation: 'Container'
+              
+  - stage: ContinuousDeployment
+    displayName: 'Continuous Deployment Stage'
+    trigger: manual
+    jobs:
+      - job: ContinuousDeploymentJob
+        displayName: 'Continuous Deployment Job'
+        steps:
+          - task: DownloadBuildArtifacts@1
+            displayName: 'DownloadBuildArtifacts $(System.ArtifactsDirectory)'
+            inputs:
+              buildType: 'current'
+              downloadType: 'single'
+              downloadPath: '$(System.ArtifactsDirectory)'
 
 
 
