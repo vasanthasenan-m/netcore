@@ -20,11 +20,11 @@ stages:
         displayName: 'Continuous Integration Job'
         steps:
           # Download SDK for .NET Core
-          - task: UseDotNet@2
-            displayName: 'Download SDK for .NET Core 8'
-            inputs:
-              version: 8.x
-              packageType: sdk
+          # - task: UseDotNet@2
+          #   displayName: 'Download SDK for .NET Core 8'
+          #   inputs:
+          #     version: 8.x
+          #     packageType: sdk
           # Restore Nuget Packages
           - task: NuGetCommand@2
             displayName: 'Nuget Restore'
@@ -34,6 +34,9 @@ stages:
           # Build .NET Core Project
           - script: dotnet build --configuration $(buildConfiguration)
             displayName: 'Build Dot Net Core Project with configuration $(buildConfiguration)'
+          # Publish .NET Core Project
+          - script: dotnet publish '**/*.csproj' --configuration $(buildConfiguration)
+            displayName: 'DotNet Publish $(buildConfiguration)'
 
 
 
